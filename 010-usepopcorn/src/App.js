@@ -50,15 +50,34 @@ const tempWatchedData = [
 const average = (arr) =>
    arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-// -----------
-function NavBar() {
+//---------------
+
+export default function App() {
+   const [movies, setMovies] = useState(tempMovieData);
    return (
-      <nav className="nav-bar">
-         <Logo />
-         <Search />
-         <NumResults />
-      </nav>
+      <>
+         <NavBar>
+            <Logo />
+            <Search />
+            <NumResults movies={movies} />
+         </NavBar>
+         <Main>
+            <ListBox>
+               <MovieList movies={movies} />
+            </ListBox>
+            <WatchedBox />
+         </Main>
+      </>
    );
+}
+
+function Main({ children }) {
+   return <main className="main">{children}</main>;
+}
+
+// -----------
+function NavBar({ children }) {
+   return <nav className="nav-bar">{children}</nav>;
 }
 
 function Logo() {
@@ -84,8 +103,7 @@ function Search() {
    );
 }
 
-function NumResults() {
-   const [movies, setMovies] = useState(tempMovieData);
+function NumResults({ movies }) {
    return (
       <p className="num-results">
          Found <strong>{movies.length}</strong> results
@@ -95,7 +113,7 @@ function NumResults() {
 
 // ----------------
 
-function ListBox() {
+function ListBox({ children }) {
    const [isOpen1, setIsOpen1] = useState(true);
    return (
       <div className="box">
@@ -105,13 +123,12 @@ function ListBox() {
          >
             {isOpen1 ? "–" : "+"}
          </button>
-         {isOpen1 && <MovieList></MovieList>}
+         {isOpen1 && children}
       </div>
    );
 }
 
-function MovieList() {
-   const [movies, setMovies] = useState(tempMovieData);
+function MovieList({ movies }) {
    return (
       <ul className="list">
          {movies?.map((movie) => (
@@ -219,25 +236,5 @@ function WatchedMovieItem({ movie }) {
             </p>
          </div>
       </li>
-   );
-}
-
-//---------------
-
-function Main() {
-   return (
-      <main className="main">
-         <ListBox />
-         <WatchedBox />
-      </main>
-   );
-}
-
-export default function App() {
-   return (
-      <>
-         <NavBar></NavBar>
-         <Main></Main>
-      </>
    );
 }
