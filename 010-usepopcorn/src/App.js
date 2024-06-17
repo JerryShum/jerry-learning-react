@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tempMovieData = [
    {
@@ -52,14 +52,66 @@ const average = (arr) =>
 
 //---------------
 
+const KEY = "6f703412";
+
 export default function App() {
    const [movies, setMovies] = useState(tempMovieData);
    const [watched, setWatched] = useState(tempWatchedData);
+   const [isLoading, setIsLoading] = useState(false);
+   const [error, setError] = useState("");
+   const tempQuery = "interstellar";
+   const [query, setQuery] = useState("");
+
+   //! This will cause an infinite loop as when the component is rendered (render logic) it will execute the top-level code
+   //! It will define states, and then fetch from API, and then --> we are setting the state to something new which triggers a re-render (infinite loop)
+   // fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+   //    .then((res) => res.json())
+   //    .then((data) => setMovies(data));
+
+   useEffect(
+      function () {
+         async function fetchMovies() {
+            try {
+               setIsLoading(true);
+               setError("");
+
+               const response = await fetch(
+                  `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+               );
+
+               if (!response.ok)
+                  throw new Error("Something went wrong with fetching movies.");
+
+               const data = await response.json();
+
+               if (data.Response === "False") {
+                  throw new Error("Movie not found.");
+               }
+
+               setMovies(data.Search);
+            } catch (err) {
+               console.error(err);
+               setError(err.message);
+            } finally {
+               setIsLoading(false);
+            }
+         }
+
+         if (query.length < 3) {
+            setMovies([]);
+            setError("");
+            return;
+         }
+         fetchMovies();
+      },
+      [query]
+   );
+
    return (
       <>
          <NavBar>
             <Logo />
-            <Search />
+            <Search query={query} setQuery={setQuery} />
             <NumResults movies={movies} />
          </NavBar>
          <Main>
@@ -73,7 +125,9 @@ export default function App() {
                }
             /> */}
             <Box>
-               <MovieList movies={movies} />
+               {isLoading && <Loader />}
+               {!isLoading && !error && <MovieList movies={movies} />}
+               {error && <ErrorMessage message={error} />}
             </Box>
             <Box>
                <WatchedSummary watched={watched} />
@@ -81,6 +135,18 @@ export default function App() {
             </Box>
          </Main>
       </>
+   );
+}
+
+function Loader() {
+   return <p className="loader"> loading...</p>;
+}
+
+function ErrorMessage({ message }) {
+   return (
+      <p className="error">
+         <span>😀 {message}</span>
+      </p>
    );
 }
 
@@ -102,9 +168,7 @@ function Logo() {
    );
 }
 
-function Search() {
-   const [query, setQuery] = useState("");
-
+function Search({ query, setQuery }) {
    return (
       <input
          className="search"
@@ -119,7 +183,7 @@ function Search() {
 function NumResults({ movies }) {
    return (
       <p className="num-results">
-         Found <strong>{movies.length}</strong> results
+         Found <strong>{movies?.length ?? 0}</strong> results
       </p>
    );
 }
