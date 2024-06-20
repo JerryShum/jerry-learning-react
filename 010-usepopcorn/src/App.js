@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import StarRating from "./components/StarRating";
+import { useMovies } from "./useMovies";
 
 const tempMovieData = [
    {
@@ -56,9 +57,6 @@ const average = (arr) =>
 const KEY = "6f703412";
 
 export default function App() {
-   const [movies, setMovies] = useState([]);
-   const [isLoading, setIsLoading] = useState(false);
-   const [error, setError] = useState("");
    const [query, setQuery] = useState("");
    const [selectedID, setSelectedID] = useState(null);
 
@@ -103,55 +101,7 @@ export default function App() {
    );
 
    //! Effect to make an API call whenever we search for a movie
-   useEffect(
-      function () {
-         const controller = new AbortController();
-
-         async function fetchMovies() {
-            try {
-               setIsLoading(true);
-               setError("");
-
-               const response = await fetch(
-                  `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-                  { signal: controller.signal }
-               );
-
-               if (!response.ok)
-                  throw new Error("Something went wrong with fetching movies.");
-
-               const data = await response.json();
-
-               if (data.Response === "False") {
-                  throw new Error("Movie not found.");
-               }
-
-               setMovies(data.Search);
-            } catch (err) {
-               console.error(err);
-               if (err.name !== "AbortError") {
-                  setError(err.message);
-               }
-            } finally {
-               setIsLoading(false);
-            }
-         }
-
-         if (query.length < 3) {
-            setMovies([]);
-            setError("");
-            return;
-         }
-
-         handleCloseMovie();
-         fetchMovies();
-
-         return function () {
-            controller.abort();
-         };
-      },
-      [query]
-   );
+   const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
 
    return (
       <>
