@@ -237,6 +237,18 @@ function Search({ query, setQuery }) {
    const inputElement = useRef(null);
 
    useEffect(function () {
+      function callBack(e) {
+         if (document.activeElement === inputElement.current) {
+            return;
+         }
+
+         if (e.code === "Enter") {
+            inputElement.current.focus();
+            setQuery("");
+         }
+      }
+      document.addEventListener("keydown", callBack);
+
       inputElement.current.focus();
    }, []);
 
