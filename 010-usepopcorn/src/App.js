@@ -2,6 +2,7 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import StarRating from "./components/StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
 
 const average = (arr) =>
    arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -123,25 +124,6 @@ function Logo() {
 function Search({ query, setQuery }) {
    const inputElement = useRef(null);
 
-   useEffect(
-      function () {
-         function callBack(e) {
-            if (document.activeElement === inputElement.current) {
-               return;
-            }
-
-            if (e.code === "Enter") {
-               inputElement.current.focus();
-               setQuery("");
-            }
-         }
-         document.addEventListener("keydown", callBack);
-
-         inputElement.current.focus();
-      },
-      [setQuery]
-   );
-
    return (
       <input
          className="search"
@@ -239,23 +221,8 @@ function MovieDetails({
    watchedArray,
 }) {
    //! Effect to listen to global keypresses for the esc key (attaching an event handler to the document object)
-   useEffect(
-      function () {
-         function callBack(e) {
-            if (e.code === "Escape") {
-               onCloseMovie();
-               console.log("CLosing ");
-            }
-         }
 
-         document.addEventListener("keydown", callBack);
-
-         return function () {
-            document.removeEventListener("keydown", callBack);
-         };
-      },
-      [onCloseMovie]
-   );
+   useKey("Escape", onCloseMovie);
 
    const [movie, setMovie] = useState({});
    const [isLoading, setIsLoading] = useState(false);
