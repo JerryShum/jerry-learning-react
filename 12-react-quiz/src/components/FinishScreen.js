@@ -1,4 +1,6 @@
-function FinishScreen({ points, maximumPoints, highscore }) {
+import { type } from "@testing-library/user-event/dist/type";
+
+function FinishScreen({ points, maximumPoints, highscore, dispatch }) {
    const percentage = Math.round((points / maximumPoints) * 100).toFixed(1);
 
    let emoji;
@@ -19,6 +21,12 @@ function FinishScreen({ points, maximumPoints, highscore }) {
             {percentage}%) {emoji}
          </p>
          <p className="highscore">(Highscore: {highscore} Points)</p>
+         <button
+            className="btn btn-ui"
+            onClick={() => dispatch({ type: "restart" })}
+         >
+            Restart Quiz
+         </button>
       </>
    );
 }
