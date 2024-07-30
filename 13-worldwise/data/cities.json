@@ -1,219 +1,27 @@
 {
   "cities": [
     {
-      "id": "4b5e",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:02.778Z",
+      "id": "c2cc",
+      "cityName": "Benassal",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-07-29T23:34:11.793Z",
       "notes": "",
       "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
+        "lat": "40.37597455044271",
+        "lng": "-0.07724761962890625"
       }
     },
     {
-      "id": "e068",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "7b62",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "af32",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "2353",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "4db7",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "e0db",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "c6b3",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "3d8f",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "c179",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "6289",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "3e52",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.979598763194474",
-        "lng": "-79.00611877441408"
-      }
-    },
-    {
-      "id": "344a",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.99972997512581",
-        "lng": "-79.02328491210939"
-      }
-    },
-    {
-      "id": "1a4c",
-      "cityName": "Whitby",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "43.99972997512581",
-        "lng": "-79.02328491210939"
-      }
-    },
-    {
-      "id": "db69",
-      "cityName": "Scugog",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "44.03417184744919",
-        "lng": "-79.01950836181642"
-      }
-    },
-    {
-      "id": "4ba0",
-      "cityName": "Scugog",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:15:21.915Z",
-      "notes": "",
-      "position": {
-        "lat": "44.06711361540371",
-        "lng": "-78.99341583251953"
-      }
-    },
-    {
-      "id": "6df9",
-      "cityName": "Uxbridge",
-      "country": "Canada",
-      "emoji": "🇨🇦",
-      "date": "2024-07-28T17:18:39.990Z",
-      "notes": "",
-      "position": {
-        "lat": "44.05798552253712",
-        "lng": "-79.07701492309572"
-      }
-    },
-    {
-      "id": "0565",
+      "id": "ff0c",
       "cityName": "Castello de la Plana",
       "country": "Spain",
       "emoji": "🇪🇸",
-      "date": "2024-07-28T17:19:05.995Z",
+      "date": "2024-07-29T23:42:43.312Z",
       "notes": "",
       "position": {
-        "lat": "39.99776943210689",
-        "lng": "0.0025749206542968754"
+        "lat": "40.02156760530186",
+        "lng": "-0.04840850830078125"
       }
     }
   ]
