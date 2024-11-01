@@ -22,29 +22,50 @@ export async function deleteCabin(cabinID) {
 }
 
 // input/needs a new cabin object
-export async function createCabin(newCabin) {
+export async function createEditCabin(newCabin, id) {
+   const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
+
    const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
       "/",
       ""
    );
-   const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+   const imagePath = hasImagePath
+      ? newCabin.image
+      : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
-   // Create cabin
-   const { data, error } = await supabase
-      .from("cabins")
-      .insert([{ ...newCabin, image: imagePath }])
-      .select();
+   //! Create/Edit cabin
+   let query = supabase.from("cabins");
 
-   if (error) {
-      console.error(error);
-      throw new Error("Cabins could not be created.");
+   // A) CREATE
+   // When we use the insert function, we do not immediately return the data (object)
+   // .select() and .single() will take the value out of the array
+
+   if (!id) {
+      const { data, error } = await query
+         .insert([{ ...newCabin, image: imagePath }])
+         .select();
+
+      if (error) {
+         console.error(error);
+         throw new Error("Cabins could not be created.");
+      }
    }
 
-   console.log("data:" + data);
+   if (id) {
+      const { data, error } = await query
+         .update({ ...newCabin, image: imagePath })
+         .eq("id", id)
+         .select();
+
+      if (error) {
+         console.error(error);
+         throw new Error("Cabins could not be edited.");
+      }
+   }
 
    // Upload Image
 
-   const { error: storageError } = await supabase.storage
+   const { data, error: storageError } = await supabase.storage
       .from("cabin-images")
       .upload(imageName, newCabin.image);
 
