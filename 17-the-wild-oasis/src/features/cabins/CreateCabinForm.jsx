@@ -29,7 +29,8 @@ function CreateCabinForm() {
    });
 
    function onSubmit(data) {
-      mutate(data);
+      // doing data.image[0] because that is a file list and we are trying to destructure the actual value of the file instead of the list
+      mutate({ ...data, image: data.image[0] });
    }
 
    function onError(errors) {
@@ -88,8 +89,9 @@ function CreateCabinForm() {
                {...register("discount", {
                   required: "This field is required",
                   validate: (value) =>
-                     value < getValues().regularPrice ||
-                     "Discount should be less than the regular price.",
+                     Number(value) < Number(getValues().regularPrice)
+                        ? true
+                        : "Discount should be less than the regular price.",
                })}
                disabled={isCreating}
             />
@@ -111,7 +113,14 @@ function CreateCabinForm() {
          </FormRow>
 
          <FormRow label={"Cabin Photo"}>
-            <FileInput id="image" accept="image/*" disabled={isCreating} />
+            <FileInput
+               id="image"
+               accept="image/*"
+               disabled={isCreating}
+               {...register("image", {
+                  required: "This field is required",
+               })}
+            />
          </FormRow>
 
          <FormRow>
