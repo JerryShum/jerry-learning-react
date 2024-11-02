@@ -40,32 +40,23 @@ export async function createEditCabin(newCabin, id) {
    // When we use the insert function, we do not immediately return the data (object)
    // .select() and .single() will take the value out of the array
 
-   if (!id) {
-      const { data, error } = await query
-         .insert([{ ...newCabin, image: imagePath }])
-         .select();
+   query = id
+      ? query.update({ ...newCabin, image: imagePath }).eq("id", id)
+      : query.insert([{ ...newCabin, image: imagePath }]);
 
-      if (error) {
-         console.error(error);
-         throw new Error("Cabins could not be created.");
-      }
-   }
+   const { data, error } = await query.select().single();
 
-   if (id) {
-      const { data, error } = await query
-         .update({ ...newCabin, image: imagePath })
-         .eq("id", id)
-         .select();
-
-      if (error) {
-         console.error(error);
-         throw new Error("Cabins could not be edited.");
-      }
+   if (error) {
+      console.error(error);
+      throw new Error(
+         id ? "Cabins could not be edited." : "Cabins could not be created."
+      );
    }
 
    // Upload Image
+   if (hasImagePath) return data;
 
-   const { data, error: storageError } = await supabase.storage
+   const { error: storageError } = await supabase.storage
       .from("cabin-images")
       .upload(imageName, newCabin.image);
 
