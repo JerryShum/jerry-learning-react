@@ -5,24 +5,18 @@ import Modal from "../../ui/Modal";
 
 function AddCabin() {
    return (
-      <Modal>
-         <Modal.Open opens="cabin-form">
-            <Button variation={"primary"} size={"medium"}>
-               Add New Cabin
-            </Button>
-         </Modal.Open>
-         <Modal.Window name="cabin-form">
-            <CreateCabinForm />
-         </Modal.Window>
-
-         {/* 
-         <Modal.Open opens="table">
-            <Button>Add New Cabin</Button>
-         </Modal.Open>
-         <Modal.Window>
-            <CreateCabinForm />
-         </Modal.Window> */}
-      </Modal>
+      <div>
+         <Modal>
+            <Modal.Open opens="cabin-form">
+               <Button variation={"primary"} size={"medium"}>
+                  Add New Cabin
+               </Button>
+            </Modal.Open>
+            <Modal.Window name="cabin-form">
+               <CreateCabinForm />
+            </Modal.Window>
+         </Modal>
+      </div>
    );
 }
 
