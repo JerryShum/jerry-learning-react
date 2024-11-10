@@ -1,3 +1,9 @@
 export default function Page() {
-   return <h1>Hello Next</h1>;
+   return (
+      <div>
+         <h1>The Wild Oasis. Welcome to Paradise.</h1>
+
+         <a href="/cabins">Explore luxury cabins</a>
+      </div>
+   );
 }
