@@ -3,7 +3,7 @@ export const metadata = {
 };
 
 function page() {
-   return <div>Welcome, Jerry</div>;
+   return <div className=" text-accent-500">Welcome, Jerry</div>;
 }
 
 export default page;
