@@ -1,8 +1,11 @@
 import CabinCard from "@/app/_components/CabinCard";
+import { getCabins } from "@/app/_lib/data-service";
 
-export default function Page() {
+export default async function Page() {
    // CHANGE
-   const cabins = [];
+   console.log("fetching cabins");
+   const cabins = await getCabins();
+   console.log(cabins);
 
    return (
       <div>
