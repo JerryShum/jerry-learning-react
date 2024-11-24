@@ -2,6 +2,15 @@ import { Suspense } from "react";
 import CabinList from "@/app/_components/CabinList";
 import Spinner from "@/app/_components/Spinner";
 
+// Revalidating and fetching new data every hour
+// export const revalidate = 3600;
+
+export const revalidate = 15;
+
+export const metadata = {
+   title: "Cabins",
+};
+
 export default async function Page() {
    return (
       <div>
