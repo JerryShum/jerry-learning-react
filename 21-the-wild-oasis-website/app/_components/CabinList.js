@@ -1,7 +1,11 @@
 import CabinCard from "@/app/_components/CabinCard";
 import { getCabins } from "@/app/_lib/data-service";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function CabinList() {
+   // No store makes the data request NOT CACHED -> meaning the server doesn't store the result of the data fetched for this component
+   noStore();
+
    // CHANGE
    console.log("fetching cabins");
    const cabins = await getCabins();
