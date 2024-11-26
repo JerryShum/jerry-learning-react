@@ -1,7 +1,10 @@
+import Reservation from "@/app/_components/Reservation";
+import Spinner from "@/app/_components/Spinner";
 import TextExpander from "@/app/_components/TextExpander";
 import { getCabin, getCabins } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { Suspense } from "react";
 
 // PLACEHOLDER DATA
 // const cabin = {
@@ -22,7 +25,6 @@ import Image from "next/image";
 export async function generateMetadata({ params }) {
    const cabinID = params.cabinID;
    const cabin = await getCabin(cabinID);
-
    const { name } = cabin;
 
    return {
@@ -93,9 +95,12 @@ export default async function Page({ params }) {
          </div>
 
          <div>
-            <h2 className="text-5xl font-semibold text-center">
+            <h2 className="text-5xl font-semibold text-center mb-10 text-accent-500">
                Reserve today. Pay on arrival.
             </h2>
+            <Suspense fallback={<Spinner />}>
+               <Reservation cabin={cabin} />
+            </Suspense>
          </div>
       </div>
    );

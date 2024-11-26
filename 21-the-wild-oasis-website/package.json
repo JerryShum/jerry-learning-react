@@ -12,10 +12,11 @@
    "dependencies": {
       "@heroicons/react": "^2.2.0",
       "@supabase/supabase-js": "^2.46.1",
-      "date-fns": "^4.1.0",
+      "date-fns": "^3.6.0",
       "next": "14.1.4",
       "react": "^18",
-      "react-dom": "^18"
+      "react-dom": "^18",
+      "react-day-picker": "^8.10.1"
    },
    "devDependencies": {
       "autoprefixer": "^10.0.1",
