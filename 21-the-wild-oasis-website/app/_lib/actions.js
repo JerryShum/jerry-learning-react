@@ -44,3 +44,29 @@ export async function updateGuest(formData) {
 
    revalidatePath("/account/profile");
 }
+
+export async function deleteReservation(bookingID) {
+   const session = await auth();
+
+   if (!session) throw new Error("You must be logged in");
+
+   const guestBookings = await getBookings(session.user.guestID);
+   // get all the ID values from the bookings
+   const guestBookingIDs = guestBookings.map((booking) => booking.id);
+
+   if (!guestBookingIDs.includes(bookingID))
+      throw new Error("You are not allowed to delete this booking. ");
+
+   // Delete the booking with that specific ID
+   const { data, error } = await supabase
+      .from("bookings")
+      .delete()
+      .eq("id", bookingID);
+
+   if (error) {
+      console.error(error);
+      throw new Error("Booking could not be deleted");
+   }
+
+   revalidatePath("/account/reservation");
+}
