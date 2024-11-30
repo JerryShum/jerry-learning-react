@@ -3,6 +3,7 @@
 import { auth, signIn, signOut } from "@/app/_lib/auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
+import { getBookings } from "./data-service";
 
 export async function signInAction() {
    await signIn("google", { redirectTo: "/account" });
@@ -69,4 +70,37 @@ export async function deleteReservation(bookingID) {
    }
 
    revalidatePath("/account/reservation");
+}
+
+export async function updateBooking(formData) {
+   // Checking if user is logged in
+   const session = await auth();
+   if (!session) throw new Error("You must be logged in.");
+
+   // Get logged in user's bookings
+   const userBookings = await getBookings(session.user.guestID);
+   const userBookingsIDs = userBookings.map((booking) => booking.id);
+
+   const numGuests = formData.get("numGuests");
+   const observations = formData.get("observations");
+   const bookingID = formData.get("bookingID");
+   const updateData = { numGuests, observations };
+
+   // Check if currently logged in user's bookings includes currently editing booking's ID
+   if (!userBookingsIDs.includes(bookingID))
+      throw new Error("You are not allowed to edit this booking.");
+
+   const { error } = await supabase
+      .from("bookings")
+      .update(updateData)
+      .eq("id", bookingID)
+      .select()
+      .single();
+
+   if (error) {
+      console.error(error);
+      throw new Error("Booking could not be updated");
+   }
+
+   revalidatePath("/account/reservation/edit");
 }
